@@ -1,0 +1,42 @@
+{% extends "users/base.html" %}
+{% block title %} Home Page {% endblock title%}
+{% load static %}
+{% block content %}
+    <div class="jumbotron">
+        {% comment %} <h1 class="display-4">10k<span style="font-size: larger;">SETX</span></h1> {% endcomment %}
+        <img src="{% static 'users/logo.png' %}" alt="logo">
+        <br>
+        <br>
+        <h3 >Welcome, {{user.first_name.title|default:'Guest'}}</h3>
+        <p class="lead">
+            The objective of SETX is to strive for Excellence in Software Engineering Technology for you and the community. Please identify an area where you would like to excel while signing up for SETX.
+        </p>
+        <p>SETX is open for undergraduate and graduate students in the Department of Computer Science at the University of Dayton. SETX will inform its members about meetings/programs.   </p>
+        <p>SETX will focus on the following areas in addition to yours:</p>
+        
+        <ul>
+            {% for topic, subtopics in topics %}
+                <li>{{ topic }}</li>
+                {% if subtopics %}
+                    <ul>
+                        {% for subtopic in subtopics %}
+                            <li>{{ subtopic }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        <p>For more information, please fill out the <a href="https://docs.google.com/forms/d/e/1FAIpQLSeLHF19X6Fh0UYis2f2D6BmNEFLn-1mHvRuHvQvRUNAshdPXg/viewform?vc=0&c=0&w=1&flr=0" target="_blank">Google Form</a>.</p>
+        <p>For any queries, contact us: <a href="mailto:korlas1@udayton.com" target="_blank">korlas1@udayton.edu</a></p>
+        <hr class="my-4">
+        <p class="lead">
+            {% if user.is_authenticated %}
+                <a class="btn btn-primary btn-lg" href="{% url 'logout' %}" role="button">Logout</a>
+            {% else %}
+                <a class="btn btn-primary btn-lg" href="{% url 'login' %}" role="button">Sign in</a>
+            {% endif %}
+        </p>
+
+    </div>
+
+{% endblock content %}
